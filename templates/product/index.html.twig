@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listes des produits{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Listes des produits</h1>
+
+                <table class="table table-responsive table-striped">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Description</th>
+                        <th>CreatedAt</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for product in products %}
+                        <tr>
+                            <td>{{ product.id }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.price }}</td>
+                            <td>{{ product.description }}</td>
+                            <td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>
+                                <a href="{{ path('product_show', {'id': product.id}) }}" class="btn btn-info">Voir</a>
+                                <a href="{{ path('product_edit', {'id': product.id}) }}" class="btn btn-warning">Edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6">Aucun produit trouver</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                <a href="{{ path('product_new') }}" class="btn btn-primary">Créer un nouveau produit</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
